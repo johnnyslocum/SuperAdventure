@@ -8,3 +8,6 @@ added constructor to 'Quest' class.
 
 9/9/15 (3)
 added constructors to 'Item' and 'Quest' classes.
+
+9/9/15 (4)
+added constructors to 'Weapon', 'Monster', 'Player' and 'LivingCreature' classes.
