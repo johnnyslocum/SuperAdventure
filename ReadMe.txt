@@ -11,3 +11,6 @@ added constructors to 'Item' and 'Quest' classes.
 
 9/9/15 (4)
 added constructors to 'Weapon', 'Monster', 'Player' and 'LivingCreature' classes.
+
+9/9/15 (5)
+added some properties to 'Location' class and updated its constructor.
