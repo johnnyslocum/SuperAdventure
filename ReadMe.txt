@@ -5,3 +5,6 @@ added constructor to 'Location' class. Also had to recreate repo because the .gi
 
 9/9/15 (2)
 added constructor to 'Quest' class.
+
+9/9/15 (3)
+added constructors to 'Item' and 'Quest' classes.
