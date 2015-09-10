@@ -26,3 +26,6 @@ added IList<> properties to 'Quest' and 'Monster' classes and updated their cons
 
 9/10/15 (3)
 added and populated a 'World' class with a couple hundred lines of code for several methods setting up the locations and monsters and items.
+
+9/10/15 (4)
+added controls to the form.
