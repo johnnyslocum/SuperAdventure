@@ -17,3 +17,6 @@ added some properties to 'Location' class and updated its constructor.
 
 9/9/15 (6)
 added a property to 'Quest' class.
+
+9/10/15 (1)
+added 'InventoryItem', 'PlayerQuest', 'QuestCompletion', and 'LootItem' classes. added a couple of IList<> properties to the  'Player' class and updated its constructor.
