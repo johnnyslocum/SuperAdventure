@@ -33,3 +33,6 @@ added controls to the form.
 
 9/10/15 (5)
 added a 'RandomNumberGenerator' class.
+
+9/10/15 (6)
+worked on player movement in the 'SuperAdventure' class. Left off at lesson 16.1
