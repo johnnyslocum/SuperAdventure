@@ -24,3 +24,5 @@ added 'InventoryItem', 'PlayerQuest', 'QuestCompletion', and 'LootItem' classes.
 9/10/15 (2)
 added IList<> properties to 'Quest' and 'Monster' classes and updated their constructors.
 
+9/10/15 (3)
+added and populated a 'World' class with a couple hundred lines of code for several methods setting up the locations and monsters and items.
