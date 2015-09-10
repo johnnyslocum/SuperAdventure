@@ -29,3 +29,7 @@ added and populated a 'World' class with a couple hundred lines of code for seve
 
 9/10/15 (4)
 added controls to the form.
+
+
+9/10/15 (5)
+added a 'RandomNumberGenerator' class.
