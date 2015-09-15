@@ -39,3 +39,6 @@ worked on player movement in the 'SuperAdventure' class. Left off at lesson 16.1
 
 9/15/15 (1)
 finished up player movement in the 'SuperAdventure' class from lesson 16.1
+
+9/15/15 (2)
+refactored some functions from the 'SuperAdventure' and 'Player' classes from lesson 16.2.
