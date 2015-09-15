@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -169,20 +170,225 @@ namespace SuperAdventure
 
                         //The player has all items required to complete the quest.
 
-                        /*
-                         * 
-                         * 
-                         * 
-                         * I Left off here!!!!!!!!!!!!!!!!!!!!!!! lesson 16.1
-                         * 
-                         * 
-                         * 
-                         * 
-                         * 
-                         * */
+                        if (playerHasAllItemsToCompleteQuest)
+                        {
+                            //Display message.
+                            rtbMessages.Text += Environment.NewLine;
+                            rtbMessages.Text += "You completed the '" + newLocation.QuestAvailableHere.Name + "' quest." +
+                                                Environment.NewLine;
 
-                        
+                            //Remove quest items from inventory.
+                            foreach (QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
+                            {
+                                foreach (InventoryItem ii in _player.Inventory)
+                                {
+                                    if (ii.Details.ID == qci.Details.ID)
+                                    {
+                                        //Subtract the quantity from the player's inventory that was needed to complete the quest.
+                                        ii.Quantity -= qci.Quantity;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //Give quest rewards.
+                            rtbMessages.Text += "You receive: " + Environment.NewLine;
+                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardExperiencePoints.ToString() +
+                                                " experience points" + Environment.NewLine;
+                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardGold.ToString() + " gold" +
+                                                Environment.NewLine;
+                            rtbMessages.Text += newLocation.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
+                            rtbMessages.Text += Environment.NewLine;
+
+                            _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
+                            _player.Gold += newLocation.QuestAvailableHere.RewardGold;
+
+                            // Add the reward item to the player's inventory.
+                            bool addedItemToPlayerInventory = false;
+
+                            foreach (InventoryItem ii  in _player.Inventory)
+                            {
+                                if (ii.Details.ID == newLocation.QuestAvailableHere.RewardItem.ID)
+                                {
+                                    //They have the item in their inventory, so increase the quantity by one.
+                                    ii.Quantity++;
+
+                                    addedItemToPlayerInventory = true;
+
+                                    break;
+                                }
+                            }
+
+                            //They didn't have the item, so add it to their inventory, with a quantity of 1.
+                            if (!addedItemToPlayerInventory)
+                            {
+                                _player.Inventory.Add(new InventoryItem(newLocation.QuestAvailableHere.RewardItem, 1));
+                            }
+
+                            //Mark the quest as completed.
+                            //Find the quest in the player's quest list.
+                            foreach (PlayerQuest pq  in _player.Quests)
+                            {
+                                if (pq.Details.ID == newLocation.QuestAvailableHere.ID)
+                                {
+                                    //Mark it as completed.
+                                    pq.IsCompleted = true;
+
+                                    break;
+                                }
+                            }
+                        }
+                     
                     }
+                }
+                else
+                {
+                    //The player does not already have the quest.
+
+                    //Display the messages.
+                    rtbMessages.Text += "You receive the " + newLocation.QuestAvailableHere.Name + " quest." +
+                                        Environment.NewLine;
+                    rtbMessages.Text += newLocation.QuestAvailableHere.Description + Environment.NewLine;
+                    rtbMessages.Text += "To complete it, return with:" + Environment.NewLine;
+
+                    foreach (QuestCompletionItem qci in newLocation.QuestAvailableHere.QuestCompletionItems)
+                    {
+                        if (qci.Quantity == 1)
+                        {
+                            rtbMessages.Text += qci.Quantity.ToString() + " " + qci.Details.Name + Environment.NewLine;
+                        }
+                        else
+                        {
+                            rtbMessages.Text += qci.Quantity.ToString() + " " + qci.Details.NamePlural +
+                                                Environment.NewLine;
+                        }
+                        rtbMessages.Text += Environment.NewLine;
+
+                        //Add the quest to the player's quest list.
+                        _player.Quests.Add(new PlayerQuest(newLocation.QuestAvailableHere));
+                    }
+                }
+
+                //Does the location have a monster?
+                if (newLocation.MonsterLivingHere != null)
+                {
+                    rtbMessages.Text += "You see a " + newLocation.MonsterLivingHere.Name + Environment.NewLine;
+
+                    //Make a new monster, using the values from the standard monster in the World.Monster list.
+                    Monster standardMonster = World.MonsterByID(newLocation.MonsterLivingHere.ID);
+
+                    _currentMonster = new Monster(standardMonster.ID, standardMonster.Name, standardMonster.MaximumDamage, standardMonster.RewardExperiencePoints, standardMonster.RewardGold, standardMonster.CurrentHitPoints, standardMonster.MaximumHitPoints);
+
+                    foreach (LootItem lootItem in standardMonster.LootTable)
+                    {
+                        _currentMonster.LootTable.Add(lootItem);
+                    }
+
+                    cboWeapons.Visible = true;
+                    cboPotions.Visible = true;
+                    btnUseWeapon.Visible = true;
+                    btnUsePotion.Visible = true;
+                }
+                else
+                {
+                    _currentMonster = null;
+
+                    cboWeapons.Visible = false;
+                    cboPotions.Visible = false;
+                    btnUseWeapon.Visible = false;
+                    btnUsePotion.Visible = false;
+                }
+
+                //Refresh player's inventory list.
+                dgvInventory.RowHeadersVisible = false;
+
+                dgvInventory.ColumnCount = 2;
+                dgvInventory.Columns[0].Name = "Name";
+                dgvInventory.Columns[0].Width = 197;
+                dgvInventory.Columns[1].Name = "Quantity";
+
+                dgvInventory.Rows.Clear();
+
+                foreach (InventoryItem inventoryItem in _player.Inventory)
+                {
+                    if (inventoryItem.Quantity > 0)
+                    {
+                        dgvInventory.Rows.Add(new[] { inventoryItem.Details.Name, inventoryItem.Quantity.ToString() });
+                    }
+                }
+
+                //Refresh player's quest list.
+                dgvQuests.RowHeadersVisible = false;
+
+                dgvQuests.ColumnCount = 2;
+                dgvQuests.Columns[0].Name = "Name";
+                dgvQuests.Columns[0].Width = 197;
+                dgvQuests.Columns[1].Name = "Done?";
+
+                dgvQuests.Rows.Clear();
+
+                foreach (PlayerQuest playerQuest in _player.Quests)
+                {
+                    dgvQuests.Rows.Add(new[] { playerQuest.Details.Name, playerQuest.IsCompleted.ToString() });
+                }
+
+                //Refresh player's weapons combobox.
+                List<Weapon> weapons = new List<Weapon>();
+
+                foreach (InventoryItem inventoryItem in _player.Inventory)
+                {
+                    if (inventoryItem.Details is Weapon)
+                    {
+                        if (inventoryItem.Quantity > 0)
+                        {
+                            weapons.Add((Weapon)inventoryItem.Details);
+                        }
+                    }
+                }
+
+                if (weapons.Count == 0)
+                {
+                    //The player doesn't have any weapons, so hide the weapon combobox and "Use" button.
+                    cboWeapons.Visible = false;
+                    btnUseWeapon.Visible = false;
+                }
+                else
+                {
+                    cboWeapons.DataSource = weapons;
+                    cboWeapons.DisplayMember = "Name";
+                    cboWeapons.ValueMember = "ID";
+
+                    cboWeapons.SelectedIndex = 0;
+                }
+
+                // Refresh the player's potions combobox.
+                List<HealingPotion> healingPotions = new List<HealingPotion>();
+
+                foreach (InventoryItem inventoryItem in _player.Inventory)
+                {
+                    if (inventoryItem.Details is HealingPotion)
+                    {
+                        if (inventoryItem.Quantity > 0)
+                        {
+                            healingPotions.Add((HealingPotion)inventoryItem.Details);
+                        }
+                    }
+                }
+
+                if (healingPotions.Count == 0)
+                {
+                    //The player doesn't have any potions, so hide the potion combobox and "Use" button.
+                    cboPotions.Visible = false;
+                    btnUsePotion.Visible = false;
+                }
+                else
+                {
+                    //The player doesn't have any potions, so hide the potion combobox and "Use" button.
+                    cboPotions.DataSource = healingPotions;
+                    cboPotions.DisplayMember = "Name";
+                    cboPotions.ValueMember = "ID";
+
+                    cboPotions.SelectedIndex = 0;
                 }
             }
         }
