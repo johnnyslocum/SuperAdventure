@@ -36,3 +36,6 @@ added a 'RandomNumberGenerator' class.
 
 9/10/15 (6)
 worked on player movement in the 'SuperAdventure' class. Left off at lesson 16.1
+
+9/15/15 (1)
+finished up player movement in the 'SuperAdventure' class from lesson 16.1
