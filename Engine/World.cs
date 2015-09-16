@@ -91,8 +91,8 @@ namespace Engine
 
             farmersField.LocationToEast = farmhouse;
 
-            alchemistHut.LocationToSouth = bridge;
-            alchemistHut.LocationToWest = alchemistsGarden;
+            alchemistHut.LocationToSouth = townSquare;
+            alchemistHut.LocationToNorth = alchemistsGarden;
 
             alchemistsGarden.LocationToSouth = alchemistHut;
 
@@ -101,6 +101,8 @@ namespace Engine
 
             bridge.LocationToWest = guardPost;
             bridge.LocationToEast = spiderField;
+
+            spiderField.LocationToWest = bridge;
             #endregion
 
             #region Add the locations to the static list
