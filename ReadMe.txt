@@ -45,3 +45,6 @@ refactored some functions from the 'SuperAdventure' and 'Player' classes from le
 
 9/15/15 (3)
 refactored some more functions from the 'SuperAdventure' and 'Player' classes finishing up lesson 16.2.
+
+9/16/15 (1)
+did some more refactoring. finished lesson 16.3 filling in the functions for using potions and using weapons. Did some bug fixes. found some others. also found and fixed some mistakes in the source code that prevented game from working as intended. game not working fully as intended. movement in the game was wrong from missing source code. buttons that should have not been visible were visible and vice versa. Double checked my code against source code, and source code was incorrect. made some fixes, still working on others. movement in game is working properly but monsters are not spawning at all to complete the quests. 
