@@ -49,8 +49,8 @@ refactored some more functions from the 'SuperAdventure' and 'Player' classes fi
 9/16/15 (1)
 did some more refactoring. finished lesson 16.3 filling in the functions for using potions and using weapons. Did some bug fixes. found some others. also found and fixed some mistakes in the source code that prevented game from working as intended. game not working fully as intended. movement in the game was wrong from missing source code. buttons that should have not been visible were visible and vice versa. Double checked my code against source code, and source code was incorrect. made some fixes, still working on others. movement in game is working properly but monsters are not spawning at all to complete the quests. 
 
-9/17/2015 (1)
+9/18/2015 (1)
 refactored several lines of code, mostly changes foreach loops into linq statements for better readability. Worked on fixing several bugs. Still have bugs regarding monsters not generating when going in to areas that should have monsters. Also data grid view tables in the UI are not populating properly. Double checked my code against the source code and all appears correct. Will probably just delete them and rewrite them to see if it is just a hiccup in Visual Studio.
 
-9/17/15 (2)
+9/18/15 (2)
 fixed the dgv issue not populating properly on the UI. I had given the dgvQuests both values for quests and inventory. duh!
