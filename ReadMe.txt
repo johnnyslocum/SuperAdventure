@@ -51,3 +51,6 @@ did some more refactoring. finished lesson 16.3 filling in the functions for usi
 
 9/17/2015 (1)
 refactored several lines of code, mostly changes foreach loops into linq statements for better readability. Worked on fixing several bugs. Still have bugs regarding monsters not generating when going in to areas that should have monsters. Also data grid view tables in the UI are not populating properly. Double checked my code against the source code and all appears correct. Will probably just delete them and rewrite them to see if it is just a hiccup in Visual Studio.
+
+9/17/15 (2)
+fixed the dgv issue not populating properly on the UI. I had given the dgvQuests both values for quests and inventory. duh!
