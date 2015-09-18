@@ -20,7 +20,7 @@ namespace Engine
         {
             ID = id;
             Name = name;
-            MaximumDamage = maximumHitPoints;
+            MaximumDamage = maximumDamage;
             RewardExperiencePoints = rewardExperiencePoints;
             RewardGold = rewardGold;
             LootTable = new List<LootItem>();

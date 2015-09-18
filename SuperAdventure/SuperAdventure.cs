@@ -4,12 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Engine;
-using RandomNumberGenerator = System.Security.Cryptography.RandomNumberGenerator;
+using System.IO;
 
 namespace SuperAdventure
 {
@@ -25,6 +24,7 @@ namespace SuperAdventure
             _player = new Player(10, 10, 20, 0, 1);
 
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+
             UpdateInventoryListUI();
             UpdatePotionListInUI();
             UpdateQuestListInUI();
@@ -64,9 +64,9 @@ namespace SuperAdventure
             //Does the location have any required items?
             if (!_player.HasRequiredItemToEnterThisLocation(newLocation))
             {
-
                 rtbMessages.Text += "You must have a " + newLocation.ItemRequiredToEnter.Name +
                                    " to enter this location." + Environment.NewLine;
+                return;
             }
 
             //Update the player's current location.
@@ -104,6 +104,7 @@ namespace SuperAdventure
                         //See if the player has all the items needed to complete the quest.
                         bool playerHasAllItemsToCompleteQuest = _player.HasAllQuestCompletionItems(newLocation.QuestAvailableHere);
                         
+                        //The player has all items required to complete the quest.
                         if (playerHasAllItemsToCompleteQuest)
                         {
                             //Display message.
@@ -175,7 +176,7 @@ namespace SuperAdventure
                     {
                         _currentMonster.LootTable.Add(lootItem);
                     }
-
+                    
                     cboWeapons.Visible = true;
                     cboPotions.Visible = true;
                     btnUseWeapon.Visible = true;
@@ -191,6 +192,9 @@ namespace SuperAdventure
                     btnUsePotion.Visible = false;
                 }
 
+                //Refresh player's stats.
+                UpdatePlayerStats();
+
                 //Refresh player's inventory list.
                 UpdateInventoryListUI();
 
@@ -202,7 +206,18 @@ namespace SuperAdventure
 
                 // Refresh the player's potions combobox.
                UpdatePotionListInUI();
+
+                ScrollToBottomOfMessages();
             }
+        }
+
+        private void UpdatePlayerStats()
+        {
+            //Refresh player information and inventory controls.
+            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            lblGold.Text = _player.Gold.ToString();
+            lblExperience.Text = _player.ExperiencePoints.ToString();
+            lblLevel.Text = _player.Level.ToString();
         }
 
         private void UpdateInventoryListUI()
@@ -265,12 +280,20 @@ namespace SuperAdventure
             }
             else
             {
+                cboWeapons.SelectedIndexChanged -= cboWeapons_SelectedIndexChanged;
                 cboWeapons.DataSource = weapons;
+                cboWeapons.SelectedIndexChanged += cboWeapons_SelectedIndexChanged;
                 cboWeapons.DisplayMember = "Name";
                 cboWeapons.ValueMember = "ID";
 
-                cboWeapons.SelectedIndex = 0;
-
+                if (_player.CurrentWeapon != null)
+                {
+                    cboWeapons.SelectedItem = _player.CurrentWeapon;
+                }
+                else
+                {
+                    cboWeapons.SelectedIndex = 0;
+                }
             }
         }
 
@@ -330,12 +353,12 @@ namespace SuperAdventure
 
                 //Give the player experience points for killing the monster.
                 _player.ExperiencePoints += _currentMonster.RewardExperiencePoints;
-                rtbMessages.Text += "You receive " + _currentMonster.RewardExperiencePoints.ToString() + " gold" +
+                rtbMessages.Text += "You receive " + _currentMonster.RewardExperiencePoints.ToString() + " experience points." +
                                     Environment.NewLine;
 
                 //Give player gold for killing the monster.
                 _player.Gold += _currentMonster.RewardGold;
-                rtbMessages.Text += "You receive " + _currentMonster.RewardGold.ToString() + " gold" +
+                rtbMessages.Text += "You receive " + _currentMonster.RewardGold.ToString() + " gold." +
                                     Environment.NewLine;
 
                 //Get random loot items from the monster.
@@ -365,6 +388,8 @@ namespace SuperAdventure
                 //Add the looted items to the player's inventory.
                 foreach (InventoryItem inventoryItem in lootedItems)
                 {
+                    _player.AddItemToInventory(inventoryItem.Details);
+
                     if (inventoryItem.Quantity == 1)
                     {
                         rtbMessages.Text += "You loot " + inventoryItem.Quantity.ToString() + " " +
@@ -378,12 +403,7 @@ namespace SuperAdventure
                     }
                 }
 
-                //Refresh player information and inventory controls.
-                lblHitPoints.Text += _player.CurrentHitPoints.ToString();
-                lblGold.Text += _player.Gold.ToString();
-                lblExperience.Text += _player.ExperiencePoints.ToString();
-                lblLevel.Text += _player.Level.ToString();
-
+                UpdatePlayerStats();
                 UpdateInventoryListUI();
                 UpdateWeaponListInUI();
                 UpdatePotionListInUI();
@@ -420,6 +440,8 @@ namespace SuperAdventure
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 }
             }
+
+            ScrollToBottomOfMessages();
         }
 
         private void btnUsePotion_Click(object sender, EventArgs e)
@@ -474,6 +496,19 @@ namespace SuperAdventure
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             UpdateInventoryListUI();
             UpdatePotionListInUI();
+
+            ScrollToBottomOfMessages();
+        }
+
+        private void ScrollToBottomOfMessages()
+        {
+            rtbMessages.SelectionStart = rtbMessages.Text.Length;
+            rtbMessages.ScrollToCaret();
+        }
+
+        private void cboWeapons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _player.CurrentWeapon = (Weapon) cboWeapons.SelectedItem;
         }
     }
 }
