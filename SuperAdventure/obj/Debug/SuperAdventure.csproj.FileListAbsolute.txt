@@ -9,3 +9,25 @@ c:\users\johnny\documents\visual studio 2012\Projects\SuperAdventure\SuperAdvent
 c:\users\johnny\documents\visual studio 2012\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.exe
 c:\users\johnny\documents\visual studio 2012\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.pdb
 c:\users\johnny\documents\visual studio 2012\Projects\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.SuperAdventure.resources
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\bin\Debug\SuperAdventure.exe.config
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.exe
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.pdb
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\bin\Debug\SuperAdventure.exe
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\bin\Debug\SuperAdventure.pdb
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\bin\Debug\Engine.dll
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\bin\Debug\Engine.pdb
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.csprojResolveAssemblyReference.cache
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.Properties.Resources.resources
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.SuperAdventure.resources
+C:\JohnnyVisualStudio\SuperAdventure\SuperAdventure\obj\Debug\SuperAdventure.csproj.GenerateResource.Cache
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\bin\Debug\SuperAdventure.exe.config
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\obj\Debug\SuperAdventure.exe
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\obj\Debug\SuperAdventure.pdb
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\bin\Debug\SuperAdventure.exe
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\bin\Debug\SuperAdventure.pdb
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\bin\Debug\Engine.dll
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\bin\Debug\Engine.pdb
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\obj\Debug\SuperAdventure.csprojResolveAssemblyReference.cache
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\obj\Debug\SuperAdventure.Properties.Resources.resources
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\obj\Debug\SuperAdventure.SuperAdventure.resources
+E:\SuperAdventure-JohnnyRevised\SuperAdventure\obj\Debug\SuperAdventure.csproj.GenerateResource.Cache
