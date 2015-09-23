@@ -54,3 +54,6 @@ refactored several lines of code, mostly changes foreach loops into linq stateme
 
 9/18/15 (2)
 fixed the dgv issue not populating properly on the UI. I had given the dgvQuests both values for quests and inventory. duh!
+
+9/22/15 (3)
+fixed the issue with monsters not populating the world properly. the issue was in the xml code additions.
